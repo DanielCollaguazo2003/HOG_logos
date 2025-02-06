@@ -1,5 +1,7 @@
 # **Informe: Detección y Clasificación de Logos con HOG**
 
+**Integrantes:** Jóse Villalta - Daniel Collaguazo
+
 ## **1. Introducción**
 Se explica el proceso de implementación de un modelo de detección y clasificación de logos utilizando **Histogram of Oriented Gradients (HOG)** y **Support Vector Machine (SVM)**. Se desarrolló un pipeline que abarca desde la limpieza de datos hasta la clasificación final de los logos en imágenes nuevas.
 
@@ -12,7 +14,6 @@ Los logos seleccionados para la clasificación son las siguientes categorias:
 - Q_qualcom
 
 Ejemplo gráfico:
-
 
 | Logo | Nombre |
 |------|--------|
@@ -37,6 +38,7 @@ Para mejorar la detección de logos, se aplicaron técnicas de preprocesamiento 
 - **Ecualización de histograma** para mejorar el contraste.
 - **Filtro Gaussiano** para suavizar la imagen.
 - **Umbral adaptativo** para mejorar la detección de bordes.
+- **Umbral binario inverso (`THRESH_BINARY_INV`)** para mejorar la segmentación de los contornos.
 
 ---
 
@@ -59,11 +61,14 @@ Para cada imagen del dataset:
 ### **4.4. Detección y Clasificación en Imágenes Nuevas**
 1. Se preprocesaron las imágenes nuevas (filtro Gaussiano, umbral adaptativo).
 2. Se utilizaron **contornos (`findContours`)** para detectar regiones de interés (posibles logos).
-3. Para cada región detectada:
+3. Se visualizaron los **contornos detectados** para asegurar una segmentación adecuada.
+4. Para cada región detectada:
    - Se extrajo el **descriptor HOG**.
    - Se clasificó con el **modelo SVM** entrenado.
    - Se dibujó un **rectángulo** alrededor del logo detectado.
    - Se agregó una etiqueta con la **predicción** (o "Desconocido" si no coincide con ningún logo entrenado).
+   - Se mostró cada **región de interés (ROI)** antes de la clasificación para verificar su correcta segmentación.
+   - Se imprimió el **tamaño del descriptor HOG** para depuración y comparación con el entrenamiento.
 
 ---
 
@@ -78,8 +83,11 @@ A continuación, se muestra una imagen con los logos detectados y clasificados:
 - La combinación de **HOG + SVM** permitió una clasificación efectiva de logos en imágenes.
 - La precisión del modelo depende en gran medida de la calidad del dataset y el preprocesamiento.
 - `findContours()` resultó ser una alternativa funcional a los detectores Haarcascades para identificar regiones de interés en la imagen.
+- Se agregó una visualización de contornos detectados para validar la segmentación.
+- Se mostró cada ROI detectado antes de la clasificación para depuración.
+- Se imprimió el tamaño de los descriptores HOG para asegurar consistencia con el entrenamiento.
 - Se podría mejorar la detección utilizando una mayor cantidad de imágenes de entrenamiento y ajustando los hiperparámetros del modelo SVM.
-- 
+
 ---
 
 ## **8. Referencias**
