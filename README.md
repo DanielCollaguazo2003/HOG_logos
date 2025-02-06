@@ -10,7 +10,10 @@ Los logos seleccionados para la clasificación son las siguientes categorias:
 - D_dc
 - D_dell
 - Q_qualcom
+
 Ejemplo gráfico:
+
+
 | Logo | Nombre |
 |------|--------|
 | ![B_brother](/logos/B_bratz/B_bratz_10.png) | BROTHER |
@@ -67,7 +70,7 @@ Para cada imagen del dataset:
 ## **5. Resultados**
 A continuación, se muestra una imagen con los logos detectados y clasificados:
 
-![Resultados de Clasificación](ruta/resultados.png)
+![Resultados de Clasificación](./deteccion.png)
 
 ---
 
