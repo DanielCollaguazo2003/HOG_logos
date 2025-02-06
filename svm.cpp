@@ -7,7 +7,6 @@ using namespace cv::ml;
 using namespace std;
 
 int main() {
-    // Cargar datos desde archivo XML
     Mat datos, etiquetas;
     FileStorage fs("hog_data.xml", FileStorage::READ);
     if (!fs.isOpened()) {
@@ -18,19 +17,16 @@ int main() {
     fs["labels"] >> etiquetas;
     fs.release();
 
-    etiquetas.convertTo(etiquetas, CV_32S); // OpenCV requiere etiquetas en int32
+    etiquetas.convertTo(etiquetas, CV_32S);
 
-    // Crear y configurar el SVM
     Ptr<SVM> svm = SVM::create();
     svm->setType(SVM::C_SVC);
     svm->setKernel(SVM::LINEAR);
     svm->setTermCriteria(TermCriteria(TermCriteria::MAX_ITER, 100, 1e-6));
-
-    // Entrenar el modelo SVM
+    
     cout << "Entrenando SVM..." << endl;
     svm->train(datos, ROW_SAMPLE, etiquetas);
 
-    // Guardar el modelo entrenado
     svm->save("svm_model.xml");
     cout << "Modelo SVM entrenado y guardado exitosamente." << endl;
     
